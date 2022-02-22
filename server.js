@@ -1,7 +1,21 @@
 const express = require('express');
-const app = express();
 const mysql = require('mysql');
+const path = require('path');
+const bodyParser = require('body-parser');
+const { time, timeStamp } = require('console');
 
+const app = express();
+
+app.get('/',(req,res)=>{
+    res.sendFile(path.join(__dirname,'views','index.html'));
+})
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(express.static('public'));
+
+app.post('/formPost',(req,res)=>{
+    console.log(req.body);
+})
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -42,17 +56,16 @@ app.get('/getusers/:id' , (req , res) => {
         res.send('users fitched <3')
     });
 });
-app.post('/add', (req,res,next) => {
-   let post = {Id:req.body.id,Username:req.body.username ,Email: req.body.email , Password: req.body.password, Age: req.body.age};
-   let sql = 'INSERT INTO users SET ?';
-   let query = db.query(sql,post,(err, results) => {
-    if(err){
-        throw err;
-    }
-    console.log(results);
-    res.send('post created <3')
-
-   });
+app.post('/add', (req, res, next) => {
+    let post = {id:5, username: req.body.name, email: req.body.email, password: req.body.password, age: req.body.age };
+    let sql = 'INSERT INTO users SET ?';
+    let query = db.query(sql, post, (err, results) => {
+        if (err) {
+            throw err;
+        }
+        console.log(results);
+        res.send('post created <3')
+    });
 });
 
 app.listen(3000, () => {
