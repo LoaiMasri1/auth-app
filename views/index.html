@@ -34,10 +34,62 @@
             <div class="form-group text-primary mb-2">
                 <label for="Age" class="form-label">Age</label>
                 <input type="number" name="age" class="form-control " id="Age" min="18" required>
+                <small class="form-text" id="ConfirmAge">Age must be over 15 years old</small>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-    
+    <script>
+        let Age=document.getElementById("Age");
+let Password=document.getElementById("Password");
+let ConfirmPassword=document.getElementById("ConfirmPassword");
+let ConfirmAge=document.getElementById("ConfirmAge");
+let passwordlHelp=document.getElementById("passwordlHelp");
+let ConfirmpasswordlHelp=document.getElementById("ConfirmpasswordlHelp");
+let SubmitBtn=document.getElementById("SubmitBtn");
+SubmitBtn.addEventListener('click',Main)
+
+function AgeCheck(){
+  if(Age.value>=18){
+    ConfirmAge.innerHTML="Age must be over 18 years old"
+   ConfirmAge.style.color="green"
+  }else{
+   ConfirmAge.innerHTML="You are less than 18 years old, the operation cannot be completed"
+   ConfirmAge.style.color="red"
+  }
+
+}
+
+
+function PasswordCheck(){
+if(Password.value.length>=8&&Password.value.length<=20){
+    passwordlHelp.innerHTML="The password is match"
+    passwordlHelp.style.color="green"
+}else{
+
+   passwordlHelp.innerHTML="The password is not valid"
+   passwordlHelp.style.color="red"
+}
+
+ 
+}
+
+  function ConfirmPasswordCheck(){
+    if(Password.value==ConfirmPassword.value && Password.value != "" && ConfirmPassword.value != ""){
+
+      ConfirmpasswordlHelp.innerHTML="correct"
+      ConfirmpasswordlHelp.style.color="green"
+    }else{
+
+      ConfirmpasswordlHelp.innerHTML="not correct"
+      ConfirmpasswordlHelp.style.color="red"
+    }
+  }
+  function Main(){
+     AgeCheck();
+     PasswordCheck();
+     ConfirmPasswordCheck();
+}
+    </script>
 </body>
 </html>
