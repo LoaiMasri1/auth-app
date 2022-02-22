@@ -2,7 +2,9 @@ const express = require('express');
 const mysql = require('mysql');
 const path = require('path');
 const bodyParser = require('body-parser');
-const { timeStamp } = require('console');
+const { v4: uuidv4 } = require('uuid');
+const e = require('express');
+require('dotenv').config();
 
 const app = express();
 
@@ -22,10 +24,9 @@ app.get('/', (req, res) => {
 });
 
 const db = mysql.createConnection({
-    host     :  'localhost',
-    user     :  'root' ,
-    password : '' ,
-    database : 'register'   
+    host     :  process.env.HOST,
+    user     :  process.env.USER,
+    database : process.env.DATABASE,
 });
 
 db.connect((err) => {
@@ -57,18 +58,17 @@ app.get('/getusers/:id' , (req , res) => {
     });
 });
 app.post('/add', (req, res, next) => {
-    let post = {id:timeStamp(), username: req.body.name, email: req.body.email, password: req.body.password, age: req.body.age };
+    let post = {id:uuidv4(), username: req.body.name, email: req.body.email, password: req.body.password, age: req.body.age };
     let sql = 'INSERT INTO users SET ?';
     let query = db.query(sql, post, (err, results) => {
         if (err) {
             throw err;
         }
-        console.log(results);
-        res.send('post created <3')
+       res.redirect('/');
     });
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 5000 , () => {
     console.log('Server started on port 3000');
 });
 
