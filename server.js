@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const path = require('path');
 const bodyParser = require('body-parser');
-const { time, timeStamp } = require('console');
+const { timeStamp } = require('console');
 
 const app = express();
 
@@ -57,7 +57,7 @@ app.get('/getusers/:id' , (req , res) => {
     });
 });
 app.post('/add', (req, res, next) => {
-    let post = {id:5, username: req.body.name, email: req.body.email, password: req.body.password, age: req.body.age };
+    let post = {id:timeStamp(), username: req.body.name, email: req.body.email, password: req.body.password, age: req.body.age };
     let sql = 'INSERT INTO users SET ?';
     let query = db.query(sql, post, (err, results) => {
         if (err) {
