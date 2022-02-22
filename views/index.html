@@ -48,7 +48,6 @@
         let ConfirmpasswordlHelp = document.getElementById("ConfirmpasswordlHelp");
         let SubmitBtn = document.getElementById("SubmitBtn");
         SubmitBtn.addEventListener('click', Main);
-
         function AgeCheck() {
             if (Age.value >= 18) {
                 ConfirmAge.innerHTML = "Age must be over 18 years old";
@@ -57,30 +56,21 @@
                 ConfirmAge.innerHTML = "You are less than 18 years old, the operation cannot be completed";
                 ConfirmAge.style.color = "red";
             }
-
         }
-
-
         function PasswordCheck() {
             if (Password.value.length >= 8 && Password.value.length <= 20) {
                 passwordlHelp.innerHTML = "The password is match";
                 passwordlHelp.style.color = "green";
             } else {
-
                 passwordlHelp.innerHTML = "The password is not valid";
                 passwordlHelp.style.color = "red";
             }
-
-
         }
-
         function ConfirmPasswordCheck() {
             if (Password.value == ConfirmPassword.value && Password.value != "" && ConfirmPassword.value != "") {
-
                 ConfirmpasswordlHelp.innerHTML = "correct";
                 ConfirmpasswordlHelp.style.color = "green";
             } else {
-
                 ConfirmpasswordlHelp.innerHTML = "not correct";
                 ConfirmpasswordlHelp.style.color = "red";
             }
