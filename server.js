@@ -3,7 +3,6 @@ const mysql = require('mysql');
 const path = require('path');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
-const e = require('express');
 require('dotenv').config();
 
 const app = express();
@@ -14,14 +13,6 @@ app.get('/',(req,res)=>{
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static('public'));
-
-app.post('/formPost',(req,res)=>{
-    console.log(req.body);
-})
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
 
 const db = mysql.createConnection({
     host     :  process.env.HOST,
