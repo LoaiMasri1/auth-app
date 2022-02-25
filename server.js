@@ -30,6 +30,16 @@ db.connect((err) => {
     console.log("mysql connected <3 ");
 } );
 
+app.post('/add', (req, res, next) => {
+    let post = {id:uuidv4(), username: req.body.name, email: req.body.email, password: req.body.password, age: req.body.age };
+    let sql = 'INSERT INTO users SET ?';
+    let query = db.query(sql, post, (err, results) => {
+        if (err) {
+            throw err;
+        }
+    res.redirect('/');
+    });
+});
 app.get('/getusers' , (req , res) => {
     let sql ='SELECT * FROM users' ; 
     let query = db.query(sql,(err,results) => {
