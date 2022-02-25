@@ -4,12 +4,15 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
-
+if (typeof localStorage === "undefined" || localStorage === null) {
+    var LocalStorage = require('node-localstorage').LocalStorage;
+    localStorage = new LocalStorage('./scratch');
+    }
 const app = express();
 
 app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'views','index.html'));
-});
+})
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static('public'));
@@ -39,19 +42,22 @@ app.get('/getusers' , (req , res) => {
 });
 
 app.get('/forget',(req,res)=>{
-    res.sendFile(path.join(__dirname,'views','./forgetPassword/forget.html'));
+    res.sendFile(path.join(__dirname,'views','forget_password.html'));
 })
-
+let email;
 app.get('/forget/user',(req,res)=>{
 
-    let sql=`select * from users where email=${req.query.email} `;
+    let sql=`select * from users where email='${req.query.email}' `;
+
+    localStorage.setItem("email", req.query.email);
     let query=db.query(sql,(err,results)=>{
         if(err){
             throw err;
         }
         console.log(results);
         if(results.length>0){ // user found
-            res.redirect(`/newpassword/?email=${req.query.email}`);
+            res.redirect(`/newpassword`);
+
         }else{
             res.send('user not found'); // user not found
         }
@@ -59,10 +65,22 @@ app.get('/forget/user',(req,res)=>{
         });
     });
 
-app.get('/newpassword',(req,res)=>{
-    res.sendFile(path.join(__dirname,'views','./forgetPassword/NewPassword.html'));
-})
+app.get('/newpassword',(req,res)    => {
+    res.sendFile(path.join(__dirname,'views','insert_password.html'));
+});
 
+app.post('/newpassword',(req,res)=>{
+    
+    let sql = `update users set Password = '${req.body.password}' where Email = '${localStorage.getItem("email")}'`;
+    let query=db.query(sql,(err,results)=>{
+        if(err){
+            throw err;
+        }
+        console.log(results);
+        });
+        res.redirect(`/`);
+        localStorage.removeItem("email");
+});
 
 app.listen(process.env.PORT || 5000 , () => {
     console.log('Server started on port 3000');
