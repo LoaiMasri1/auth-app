@@ -80,7 +80,7 @@
             }
             if (checkPassword(Password.value)) {
 
-                passwordlHelp.innerHTML = "The password is match";
+                passwordlHelp.innerHTML = "The password is valid";
                 passwordlHelp.style.color = "green";
             } else {
                 passwordlHelp.innerHTML = "The password is not valid";
@@ -94,10 +94,10 @@
         }
         function ConfirmPasswordCheck() {
             if (Password.value == ConfirmPassword.value && Password.value != "" && ConfirmPassword.value != "") {
-                ConfirmpasswordlHelp.innerHTML = "correct";
+                ConfirmpasswordlHelp.innerHTML = "the two password match";
                 ConfirmpasswordlHelp.style.color = "green";
             } else {
-                ConfirmpasswordlHelp.innerHTML = "not correct";
+                ConfirmpasswordlHelp.innerHTML = "the two password don't match";
                 ConfirmpasswordlHelp.style.color = "red";
             }
         }
