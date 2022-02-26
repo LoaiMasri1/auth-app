@@ -10,26 +10,56 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
-<body class="bg-primary bg-opacity-75">
-    <div class="container d-flex justify-content-center align-items-center pt-3">
-        <form action="/login" method="post" class="w-50 bg-white p-4" style="border-radius: 12px;">
-            <div class="form-group text-primary mb-2">
-                <h1 class="text-primary text-center">Log In</h1>
+<body style="height: 100vh;">
+    <section class="h-100 gradient-form" style="background-color: rgb(221, 220, 220);">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-xl-10">
+            <div class="card rounded-3 text-black">
+              <div class="row g-0">
+                <div class="col-lg-6">
+                  <div class="card-body p-md-5 mx-md-4">
+                    <div class="text-center">
+                      <img src="https://g.top4top.io/p_2248g0np71.png" style="width: 280px;" alt="logo">
+                      <h4 class="mt-1 mb-5 pb-1 fw-bold" style="color: #d8363a;">We Are The G.O.A.T Team</h4>
+                    </div>
+                    <form action="/login" method="post">
+                      <div class="form-floating mb-4">
+                        <input type="email" class="form-control" id="Email" name="email" placeholder="Email Address" />
+                        <label class="form-label" for="Email">Email</label>
+                      </div>
+                      <div class="form-floating mb-4">
+                        <input type="password" id="Password" name="password" class="form-control" placeholder="Password" />
+                        <label class="form-label" for="Password">Password</label>
+                      </div>
+                      <div class="text-center pt-1 mb-5 pb-1">
+                        <button class="btn btn-primary btn-block fa-lg w-100  mb-3 border-0" type="submit"
+                          style="background: #fccb90;background:linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);">Log
+                          in</button>
+                        <a class="text-muted text-decoration-none" href="/forget">Forgot password?</a>
+                      </div>
+    
+                      <div class="d-flex align-items-center justify-content-center pb-4">
+                        <p class="mb-0 me-2">Don't have an account?</p>
+                        <a class="btn btn-outline-danger px-3" href="/signup">Create new</a>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-lg-6 d-flex align-items-center"
+                  style="background: #fccb90;background:linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);">
+                  <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                    <h4 class="mb-4">This Is A Challenge To Make An Authentication App In 2 Weeks With Your Team</h4>
+                    <p class="small mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora error non nobis
+                      rerum? Obcaecati exercitationem quibusdam odio magni nihil facilis nostrum cupiditate vitae veniam
+                      pariatur?</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="form-group text-primary mb-2">
-                <label for="Email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control primary" id="Email" aria-describedby="emailHelp" required>
-            </div>
-            <div class="form-group text-primary mb-2">
-                <label for="Password" class="form-label">Password</label>
-                <input type="password" name="password" class="form-control " id="Password" aria-describedby="passwordlHelp" required>
-            </div>
-            <div class="mb-3">
-                <a class="ms-3 text-decoration-none" href="/forget" class="link-primary">Forget Password ?</a>
-                <span class="float-end me-3" >Don't have an account ? <a class="text-decoration-none" href="/signup" class="link-primary">Sign Up</a></span>
-            </div>
-            <button type="submit" class="btn btn-primary" id="SubmitBtn">LogIn</button>
-        </form>
-    </div>
+          </div>
+        </div>
+      </div>
+    </section>
 </body>
 </html>
