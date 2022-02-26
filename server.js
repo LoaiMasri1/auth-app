@@ -43,7 +43,6 @@ app.get('/forget',(req,res)=>{
 })
 
 app.get('/forget/user',(req,res)=>{
-
     let sql=`select * from users where email=${req.query.email} `;
     let query=db.query(sql,(err,results)=>{
         if(err){
