@@ -9,14 +9,22 @@ if (typeof localStorage === "undefined" || localStorage === null) {
     localStorage = new LocalStorage('./scratch');
     }
 const app = express();
-
+app.set('view engine', 'ejs');
 app.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,'views','index.html'));
+    res.render('./login/logIn')
+});
+app.get('/signup',(req,res)=>{
+    res.render('./register/register')
 });
 
-app.get('/logIn',(req,res)=>{
-    res.sendFile(path.join(__dirname,'views','LogIn.html'));
+app.get('/forget',(req,res)=>{
+    res.render('./forget/forget_password')
 });
+
+app.get('/newpassword',(req,res)    => {
+    res.render('./forget/insert_password');
+});
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
@@ -57,14 +65,10 @@ app.get('/getusers' , (req , res) => {
     });
 });
 
-app.get('/forget',(req,res)=>{
-    res.sendFile(path.join(__dirname,'views','forget_password.html'));
-})
+
 
 app.get('/forget/user',(req,res)=>{
-
     let sql=`select * from users where email='${req.query.email}' `;
-
     localStorage.setItem("email", req.query.email);
     let query=db.query(sql,(err,results)=>{
         if(err){
@@ -80,10 +84,6 @@ app.get('/forget/user',(req,res)=>{
     });
 });
 
-app.get('/newpassword',(req,res)    => {
-    res.sendFile(path.join(__dirname,'views','insert_password.html'));
-});
-
 app.post('/newpassword',(req,res)=>{
     
     let sql = `update users set Password = '${req.body.password}' where Email = '${localStorage.getItem("email")}'`;
@@ -97,14 +97,13 @@ app.post('/newpassword',(req,res)=>{
         localStorage.removeItem("email");
 });
 
-app.post('/logIn', (req , res) => {
+app.post('/login', (req , res) => {
     let email = req.body.email
     let password = req.body.password;
     let query = db.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (error, results) => {
         if (error) throw error;
         if (results.length > 0) {
-            console.log('logIn done!');
-            res.send('logIn Done!');
+            res.render('mainpage',{email:req.body.email})
         } else { res.send('Incorrect Email or Password!'); }
     })
 })
@@ -112,6 +111,4 @@ app.post('/logIn', (req , res) => {
 app.listen(process.env.PORT || 5000 , () => {
     console.log('Server started on port 3000');
 });
-
-
 
