@@ -13,6 +13,11 @@ const app = express();
 app.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,'views','index.html'));
 });
+
+app.get('/logIn',(req,res)=>{
+    res.sendFile(path.join(__dirname,'views','LogIn.html'));
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static('public'));
@@ -72,9 +77,8 @@ app.get('/forget/user',(req,res)=>{
         }else{
             res.send('user not found'); // user not found
         }
-
-        });
     });
+});
 
 app.get('/newpassword',(req,res)    => {
     res.sendFile(path.join(__dirname,'views','insert_password.html'));
@@ -93,6 +97,17 @@ app.post('/newpassword',(req,res)=>{
         localStorage.removeItem("email");
 });
 
+app.post('/logIn', (req , res) => {
+    let email = req.body.email
+    let password = req.body.password;
+    let query = db.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (error, results) => {
+        if (error) throw error;
+        if (results.length > 0) {
+            console.log('logIn done!');
+            res.send('logIn Done!');
+        } else { res.send('Incorrect Email or Password!'); }
+    })
+})
 
 app.listen(process.env.PORT || 5000 , () => {
     console.log('Server started on port 3000');
