@@ -55,7 +55,7 @@ app.get('/getusers' , (req , res) => {
 app.get('/forget',(req,res)=>{
     res.sendFile(path.join(__dirname,'views','forget_password.html'));
 })
-let email;
+
 app.get('/forget/user',(req,res)=>{
 
     let sql=`select * from users where email='${req.query.email}' `;
