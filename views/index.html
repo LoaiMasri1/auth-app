@@ -27,7 +27,7 @@
                 <label for="Password" class="form-label">Password</label>
                 <input type="password" name="password" class="form-control " id="Password"
                     aria-describedby="passwordlHelp" required>
-                <small id="passwordlHelp" class="form-text">Your password must be 8-20 characters long.</small>
+                <small id="passwordlHelp" class="form-text">The password must be between 8 and 20 characters and contain symbols, uppercase and lowercase letters.</small>
             </div>
             <div class="form-group text-primary mb-2">
                 <label for="ConfirmPassword" class="form-label">Confirm Password</label>
@@ -62,13 +62,28 @@
             }
         }
         function PasswordCheck() {
-            if (Password.value.length >= 8 && Password.value.length <= 20) {
+            if(Password.value.length < 8){
+                passwordlHelp.innerHTML = "Password is less than 8 characters";
+                passwordlHelp.style.color = "red";
+              return false
+            }
+            if(Password.value.length > 20){
+                passwordlHelp.innerHTML = "Password more than 20 characters";
+                passwordlHelp.style.color = "red";
+              return false
+            }
+            if (checkPassword(Password.value)) {
                 passwordlHelp.innerHTML = "The password is match";
                 passwordlHelp.style.color = "green";
             } else {
                 passwordlHelp.innerHTML = "The password is not valid";
                 passwordlHelp.style.color = "red";
             }
+        }
+        function checkPassword(str)
+        {
+            var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+            return re.test(str);
         }
         function ConfirmPasswordCheck() {
             if (Password.value == ConfirmPassword.value && Password.value != "" && ConfirmPassword.value != "") {
@@ -83,7 +98,7 @@
                 ConfirmPassword.value="";
             }
         }
-        function Main() {
+        function Main(e) {
             AgeCheck();
             PasswordCheck();
             ConfirmPasswordCheck();
