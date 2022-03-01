@@ -13,7 +13,7 @@ router.post('/', (req , res, next) => {
             db.query(sql, email, (err, result) => {
                 if (err) throw err;
                 console.log(result[0].username);
-                res.render('mainpage', { email:result[0].username})
+                res.render('mainpage', { username:result[0].username})
             });
         } else { res.send('Incorrect Email or Password!'); }
     })

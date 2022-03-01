@@ -1,15 +1,24 @@
 const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const bodyParser = require('body-parser');
 const addUser = require('./routes/register/addUser');
 const getUser = require('./routes/register/getUser');
 const loginUser = require('./routes/login/logIn');
 const forgetUser = require('./routes/forget/forgetUser');
 const newPassword = require('./routes/forget/newPassword');
 require('dotenv').config();
+require('./routes/login/auth')(passport);
 
 const app = express();
+// to use the session
+app.use(session({secret: 'secret', resave: false, saveUninitialized: false}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended : true}));
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/',(req,res)=>{
@@ -25,6 +34,30 @@ app.get('/forget',(req,res)=>{
 
 app.get('/newpassword',(req,res)    => {
     res.render('./forget/insert_password');
+});
+
+
+app.get("/home/google", (req, res) => {
+  //console.log(req.user);
+  res.render("mainpage", { username: req.user.displayName });
+});
+
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+
+app.get(
+  "/login/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  (req, res) => {
+    res.redirect("/home/google"); //redirect to home page
+  }
+);
+
+app.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
 });
 
 app.use('/add',addUser);
