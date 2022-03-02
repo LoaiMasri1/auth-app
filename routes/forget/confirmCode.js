@@ -13,6 +13,7 @@ router.post('/',(req,res)=>{
 
     if(req.body.number == parseInt(code)){
       res.redirect('/newpassword');
+      localStorage.removeItem("code");
     }
     else{
       res.send('invalid code :(');
