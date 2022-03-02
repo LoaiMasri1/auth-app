@@ -7,6 +7,9 @@ const getUser = require('./routes/register/getUser');
 const loginUser = require('./routes/login/logIn');
 const forgetUser = require('./routes/forget/forgetUser');
 const newPassword = require('./routes/forget/newPassword');
+const confirmCode = require('./routes/forget/confirmCode');
+const SendCode= require('./routes/forget/sendCode')
+
 require('dotenv').config();
 require('./routes/login/auth')(passport);
 
@@ -36,6 +39,13 @@ app.get('/newpassword',(req,res)    => {
     res.render('./forget/insert_password');
 });
 
+app.get('/ConfirmationCode',(req,res)    => {
+  res.render('./forget/Confirmation_code');
+});
+
+app.get('/SendCode',(req,res)    => {
+  res.render('./forget/send_code');
+});
 
 app.get("/home/google", (req, res) => {
   //console.log(req.user);
@@ -65,6 +75,8 @@ app.use('/getusers',getUser);
 app.use('/login',loginUser);
 app.use('/forget/user',forgetUser);
 app.use('/newpassword',newPassword);
+app.use('/SendCode',SendCode);
+app.use('/ConfirmationCode',confirmCode);
 
 const PORT=process.env.PORT
 app.listen(PORT || 5000 , () => {
