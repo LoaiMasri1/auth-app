@@ -55,7 +55,7 @@
                                             <small class="form-text" id="ConfirmAge">Age must be over 18 years old</small>
                                         </div>
                                         <button id="SubmitBtn"
-                                            class="btn btn-primary btn-block fa-lg w-50 py-2  mb-3 border-0" type="submit"
+                                            class="btn btn-primary btn-block fa-lg w-50 py-2  mb-3 border-0" type="submit" disabled="false"
                                             style="background: #fccb90;background:linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);">Sign
                                             Up</button>
                                     </form>
@@ -84,27 +84,35 @@
             if (Age.value >= 18) {
                 ConfirmAge.innerHTML = "Age must be over 18 years old";
                 ConfirmAge.style.color = "green";
+                SubmitBtn.disabled = false;
             } else {
                 ConfirmAge.innerHTML = "You are less than 18 years old, the operation cannot be completed";
                 ConfirmAge.style.color = "red";
+                SubmitBtn.disabled = true;
+
             }
         }
         function PasswordCheck() {
             if (Password.value.length < 8) {
                 passwordlHelp.innerHTML = "Password is less than 8 characters";
                 passwordlHelp.style.color = "red";
+                SubmitBtn.disabled = true;
                 return false
             }
             if (Password.value.length > 20) {
                 passwordlHelp.innerHTML = "Password more than 20 characters";
                 passwordlHelp.style.color = "red";
+                SubmitBtn.disabled = true;
                 return false
             }
             if (checkPassword(Password.value)) {
 
                 passwordlHelp.innerHTML = "The password is valid";
                 passwordlHelp.style.color = "green";
+                SubmitBtn.disabled = false;
+
             } else {
+                SubmitBtn.disabled = true;
                 passwordlHelp.innerHTML = "The password is not valid";
                 passwordlHelp.style.color = "red";
             }
@@ -118,9 +126,11 @@
             if (Password.value == ConfirmPassword.value && Password.value != "" && ConfirmPassword.value != "") {
                 ConfirmpasswordlHelp.innerHTML = "The two password match";
                 ConfirmpasswordlHelp.style.color = "green";
+                SubmitBtn.disabled = false;
             } else {
                 ConfirmpasswordlHelp.innerHTML = "The two password don't match";
                 ConfirmpasswordlHelp.style.color = "red";
+                SubmitBtn.disabled = true;
             }
         }
         function test(){

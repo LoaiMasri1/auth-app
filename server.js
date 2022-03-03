@@ -49,7 +49,7 @@ app.get('/SendCode',(req,res)    => {
 
 app.get("/home/google", (req, res) => {
   //console.log(req.user);
-  res.render("mainpage", { username: req.user.displayName });
+  res.render("mainpage", { username: req.user.displayName,verified:true });
 });
 
 app.get(
