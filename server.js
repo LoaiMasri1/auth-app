@@ -2,13 +2,10 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const addUser = require('./routes/register/addUser');
-const getUser = require('./routes/register/getUser');
 const loginUser = require('./routes/login/logIn');
-const forgetUser = require('./routes/forget/forgetUser');
-const newPassword = require('./routes/forget/newPassword');
-const confirmCode = require('./routes/forget/confirmCode');
-const SendCode= require('./routes/forget/sendCode')
+const forget = require('./routes/forget');
+const register=require('./routes/register');
+
 
 require('dotenv').config();
 require('./routes/login/auth')(passport);
@@ -70,13 +67,12 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-app.use('/add',addUser);
-app.use('/getusers',getUser);
+// app.use('/add',addUser);
+// app.use('/getusers',getUser);
 app.use('/login',loginUser);
-app.use('/forget/user',forgetUser);
-app.use('/newpassword',newPassword);
-app.use('/SendCode',SendCode);
-app.use('/ConfirmationCode',confirmCode);
+
+app.use('/forget/user',forget);
+app.use('/register',register);
 
 const PORT=process.env.PORT
 app.listen(PORT || 5000 , () => {
