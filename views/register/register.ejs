@@ -9,6 +9,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body style="height: 100vh;">
+
     <section class=" gradient-form h-100" style="background-color: rgb(224, 202, 202);">
         <div class="container py-2 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -20,7 +21,7 @@
                                     <div class="text-center">
                                         <img src="https://gcdnb.pbrd.co/images/CQgzXKme3CoR.png?o=1" style="width: 200px;" alt="logo">
                                     </div>
-                                    <form action="/add" method="post">
+                                    <form action="/register/add" method="post">
                                         <div class="form-floating ">
                                             <input type="email" name="email" class="form-control primary" id="Email"
                                                 aria-describedby="emailHelp" placeholder="Email Address" required>
@@ -55,7 +56,7 @@
                                             <small class="form-text" id="ConfirmAge">Age must be over 18 years old</small>
                                         </div>
                                         <button id="SubmitBtn"
-                                            class="btn btn-primary btn-block fa-lg w-50 py-2  mb-3 border-0" type="submit"
+                                            class="btn btn-primary btn-block fa-lg w-50 py-2  mb-3 border-0" type="submit" disabled="false"
                                             style="background: #fccb90;background:linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);">Sign
                                             Up</button>
                                     </form>
@@ -84,27 +85,35 @@
             if (Age.value >= 18) {
                 ConfirmAge.innerHTML = "Age must be over 18 years old";
                 ConfirmAge.style.color = "green";
+                SubmitBtn.disabled = false;
             } else {
                 ConfirmAge.innerHTML = "You are less than 18 years old, the operation cannot be completed";
                 ConfirmAge.style.color = "red";
+                SubmitBtn.disabled = true;
+
             }
         }
         function PasswordCheck() {
             if (Password.value.length < 8) {
                 passwordlHelp.innerHTML = "Password is less than 8 characters";
                 passwordlHelp.style.color = "red";
+                SubmitBtn.disabled = true;
                 return false
             }
             if (Password.value.length > 20) {
                 passwordlHelp.innerHTML = "Password more than 20 characters";
                 passwordlHelp.style.color = "red";
+                SubmitBtn.disabled = true;
                 return false
             }
             if (checkPassword(Password.value)) {
 
                 passwordlHelp.innerHTML = "The password is valid";
                 passwordlHelp.style.color = "green";
+                SubmitBtn.disabled = false;
+
             } else {
+                SubmitBtn.disabled = true;
                 passwordlHelp.innerHTML = "The password is not valid";
                 passwordlHelp.style.color = "red";
             }
@@ -118,9 +127,11 @@
             if (Password.value == ConfirmPassword.value && Password.value != "" && ConfirmPassword.value != "") {
                 ConfirmpasswordlHelp.innerHTML = "The two password match";
                 ConfirmpasswordlHelp.style.color = "green";
+                SubmitBtn.disabled = false;
             } else {
                 ConfirmpasswordlHelp.innerHTML = "The two password don't match";
                 ConfirmpasswordlHelp.style.color = "red";
+                SubmitBtn.disabled = true;
             }
         }
         function test(){
