@@ -1,5 +1,4 @@
-const express = require('express');
-const db = require('../db');
+const db = require('../config/db');
 
 const login = (req, res, next) => {
     let email = req.body.email

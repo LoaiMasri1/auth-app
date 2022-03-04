@@ -1,5 +1,4 @@
-const express= require('express');
-const db = require('../db');
+const db = require('../config/db');
 const { v4: uuidv4 } = require('uuid');
 
 const addUser = (req, res, next) => {

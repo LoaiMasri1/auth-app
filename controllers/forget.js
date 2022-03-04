@@ -1,5 +1,5 @@
-const express = require('express');
-const db = require('../db');
+const db = require('../config/db');
+require('dotenv').config();
 const nodemailer = require('nodemailer');
 
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -52,27 +52,26 @@ const sendCode = (req, res, next) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'muthanamuthana934@gmail.com',
-            pass: '0599356327'
+            user: process.env.GOOGLE_USER,
+            pass: process.env.GOOGLE_PASS
         }
     });
 
     const mailOptions = {
-        from: 'muthanamuthana934@gmail.com',
+        from: process.env.GOOGLE_USER,
         to: `${localStorage.getItem("email")}`,
         subject: 'Account Confirmation',
         html: '<center><h1>welcome</h1><h1>The confirmation code is</h1><h1 color="red">' + rand.toString() + '</h1></center>'
     };
     console.log(rand);
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        } else {
+    
+    transporter.sendMail(mailOptions,(err, info)=> {
+        if (err) console.log(err);
+         else {
             console.log('Done : ' + info.response);
             res.redirect('/ConfirmationCode');
             localStorage.setItem("code", rand);
         }
-
     })
 }
 

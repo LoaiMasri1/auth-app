@@ -2,13 +2,13 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const loginUser = require('./routes/login/logIn');
+const loginUser = require('./routes/logIn');
 const forget = require('./routes/forget');
 const register=require('./routes/register');
 
 
 require('dotenv').config();
-require('./routes/login/auth')(passport);
+require('./config/passport')(passport);
 
 const app = express();
 // to use the session
@@ -76,5 +76,5 @@ app.use('/register',register);
 
 const PORT=process.env.PORT
 app.listen(PORT || 5000 , () => {
-    console.log(`Server started on port http://localhost:${PORT}`);
+    console.log(`Server started on http://localhost:${PORT}`);
 });
