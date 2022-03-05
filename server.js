@@ -66,7 +66,15 @@ app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
 });
-
+const db = require('./config/db');
+app.get('/verified', (req, res)=>{
+  let sql = 'update users set verified = ? where Email = ? ';
+  let query = db.query(sql, [1, "hamood_hmouda@outlook.sa"], (err, results) => {
+    if (err) {
+      throw err;
+    }
+  });
+});
 // app.use('/add',addUser);
 // app.use('/getusers',getUser);
 app.use('/login',loginUser);
