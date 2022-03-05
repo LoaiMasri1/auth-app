@@ -2,10 +2,6 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const loginUser = require('./routes/logIn');
-const forget = require('./routes/forget');
-const register=require('./routes/register');
-
 
 require('dotenv').config();
 require('./config/passport')(passport);
@@ -21,28 +17,6 @@ app.use(express.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-app.get('/',(req,res)=>{
-    res.render('./login/logIn')
-});
-app.get('/signup',(req,res)=>{
-    res.render('./register/register')
-});
-
-app.get('/forget',(req,res)=>{
-    res.render('./forget/forget_password')
-});
-
-app.get('/newpassword',(req,res)    => {
-    res.render('./forget/insert_password');
-});
-
-app.get('/ConfirmationCode',(req,res)    => {
-  res.render('./forget/Confirmation_code');
-});
-
-app.get('/SendCode',(req,res)    => {
-  res.render('./forget/send_code');
-});
 
 app.get("/home/google", (req, res) => {
   //console.log(req.user);
@@ -75,12 +49,11 @@ app.get('/verified', (req, res)=>{
     }
   });
 });
-// app.use('/add',addUser);
-// app.use('/getusers',getUser);
-app.use('/login',loginUser);
 
-app.use('/forget/user',forget);
-app.use('/register',register);
+app.use('/',require('./routes/pages'));
+app.use('/login',require('./routes/logIn'));
+app.use('/forget/user',require('./routes/forget'));
+app.use('/register',require('./routes/register'));
 
 const PORT=process.env.PORT
 app.listen(PORT || 5000 , () => {

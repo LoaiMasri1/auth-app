@@ -2,8 +2,7 @@ const db = require('../config/db');
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcrypt');
 const addUser = async (req, res, next) => {
-    const salt = 10;
-let hashPassword= await bcrypt.hash(req.body.password,salt);
+let hashPassword= await bcrypt.hash(req.body.password,10);
     let post = { id: uuidv4(), username: req.body.name, email: req.body.email, password: hashPassword, age: req.body.age };
     let sql = 'INSERT INTO users SET ?';
     let query = db.query(sql, post, (err, results) => {

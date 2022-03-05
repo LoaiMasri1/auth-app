@@ -24,10 +24,7 @@ const login = (req, res, next) => {
             }
              else { res.send('Incorrect Email or Password!'); }
         }
-         
-         else {return false};
-        
+        else {return res.send('Incorrect Email or Password!');}
 })}
-
 
 module.exports = login;
