@@ -2,7 +2,10 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-
+if (typeof localStorage === "undefined" || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
 require('dotenv').config();
 require('./config/passport')(passport);
 
@@ -39,15 +42,6 @@ app.get(
 app.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");
-});
-const db = require('./config/db');
-app.get('/verified', (req, res)=>{
-  let sql = 'update users set verified = ? where Email = ? ';
-  let query = db.query(sql, [1, "hamood_hmouda@outlook.sa"], (err, results) => {
-    if (err) {
-      throw err;
-    }
-  });
 });
 
 app.use('/',require('./routes/pages'));

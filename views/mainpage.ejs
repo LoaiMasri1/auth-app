@@ -11,7 +11,7 @@
 <body class="d-flex justify-content-center" style="background: #fccb90;background:linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);">
     <section class="gradient-form w-50 mt-5 py-3" style="background-color: rgb(221, 220, 220); border-radius: 12px;">
         <div class="container w-50">
-            <a id="next" href="/verified"> <%= verified %>  </a>
+            <a href="/VerifyEmail"> <%= verified %>  </a>
             <div class="text-center">
                 <img src="https://gcdnb.pbrd.co/images/CQgzXKme3CoR.png?o=1" style="width: 200px;" alt="logo">
             </div>
@@ -26,13 +26,5 @@
             </div>
         </div>
     </section>
-    <script>
-        let verified = document.getElementById("next");
-        verified.addEventListener("click" , ()=>{
-            if(verified.textContent != "verified"){
-                verified.textContent = "verified";
-            }
-        })
-    </script>
 </body>
 </html>

@@ -20,6 +20,14 @@ router.get('/ConfirmationCode',(req,res)    => {
   res.render('./forget/Confirmation_code');
 });
 
+router.get('/VerifyEmail',(req,res)    => {
+  res.render('send_code2');
+})
+
+router.get('/GetCode',(req,res)    => {
+  res.render('confirmation_code2');
+})
+
 router.get('/SendCode',(req,res)    => {
   res.render('./forget/send_code');
 });
