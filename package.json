@@ -16,7 +16,7 @@
     "window": "^4.2.7"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server"
   },
   "name": "auth-app",
   "version": "1.0.0",
