@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const path = require("path");
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
@@ -18,7 +19,7 @@ app.use(passport.session());
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended : true}));
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use("/static", express.static('./public/'));
 
 
 app.get("/home/google", (req, res) => {
