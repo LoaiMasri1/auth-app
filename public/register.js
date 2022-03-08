@@ -1,6 +1,7 @@
 const email= document.getElementById('Email');
 const password= document.getElementById('Password');
 const confirmPassword= document.getElementById('ConfirmPassword');
+const age = document.getElementById("Age");
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
@@ -60,23 +61,23 @@ function validateConfirmPassword() {
 }
 
 function validateAge() {
-    if (AGE_REGEX.test(document.getElementById("Age").value)) {
+    if (AGE_REGEX.test(age.value)) {
         clearTimeout(ageTimeout);
         ageTimeout = setTimeout(() => {
-            document.getElementById("Age").classList.remove("is-invalid");
-            document.getElementById("Age").classList.add("is-valid");
+            age.classList.remove("is-invalid");
+            age.classList.add("is-valid");
             SubmitBtn.disabled = false;
         }, TIME_DELAY);
     } else {
         clearTimeout(ageTimeout);
-        document.getElementById("Age").classList.remove("is-valid");
-        document.getElementById("Age").classList.add("is-invalid");
+        age.classList.remove("is-valid");
+        age.classList.add("is-invalid");
         SubmitBtn.disabled = true;
     }
 }
 
 function validateAll() {
-    if (EMAIL_REGEX.test(email.value) &&PASSWORD_REGEX.test(password.value) && AGE_REGEX.test(document.getElementById("Age").value) && password.value.length >= 8 && document.getElementById("Age").value.length >= 1) {
+    if (EMAIL_REGEX.test(email.value) &&PASSWORD_REGEX.test(password.value) && AGE_REGEX.test(age.value) && password.value.length >= 8 && age.value.length >= 1) {
         SubmitBtn.disabled = false;
     } else {
         SubmitBtn.disabled = true;
@@ -86,14 +87,14 @@ function validateAll() {
 // on input change
 password.addEventListener("input", validatePassword);
 confirmPassword.addEventListener("input", validateConfirmPassword);
-document.getElementById("Age").addEventListener("input", validateAge);
+age.addEventListener("input", validateAge);
 email.addEventListener("input", validateEmail);
 
 
 // on blur
 password.addEventListener("blur", validatePassword);
 confirmPassword.addEventListener("blur", validateConfirmPassword);
-document.getElementById("Age").addEventListener("blur", validateAge);
+age.addEventListener("blur", validateAge);
 email.addEventListener("blur", validateEmail);
 // on submit
 document.getElementById("SubmitBtn").addEventListener("click", () => {

@@ -1,55 +1,60 @@
-let Password = document.getElementById("Password");
-        let ConfirmPassword = document.getElementById("ConfirmPassword");
-        let passwordlHelp = document.getElementById("passwordlHelp");
-        let ConfirmpasswordlHelp = document.getElementById("ConfirmpasswordlHelp");
-        let SubmitBtn = document.getElementById("SubmitBtn");
-        let typingTimer;
-        let doneTypingInterval = 1300;  
-        SubmitBtn.addEventListener('click', Main);
-        Password.addEventListener('keyup', PasswordCheck);
-        ConfirmPassword.addEventListener('keyup', test) 
-         function PasswordCheck() {
-            if (Password.value.length < 8) {
-                passwordlHelp.innerHTML = "Password is less than 8 characters";
-                passwordlHelp.style.color = "red";
-                return false
-            }
-            if (Password.value.length > 20) {
-                passwordlHelp.innerHTML = "Password more than 20 characters";
-                passwordlHelp.style.color = "red";
-                return false
-            }
-            if (checkPassword(Password.value)) {
-                passwordlHelp.innerHTML = "The password is valid";
-                passwordlHelp.style.color = "green";
-            } else {
-                passwordlHelp.innerHTML = "The password is not valid";
-                passwordlHelp.style.color = "red";
-            }
-        }
-        function checkPassword(str) {
-            var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
-            return re.test(str);
-        }
-        function ConfirmPasswordCheck() {
-            if (Password.value == ConfirmPassword.value && Password.value != "" && ConfirmPassword.value != "") {
-                ConfirmpasswordlHelp.innerHTML = "The two password match";
-                ConfirmpasswordlHelp.style.color = "green";
-            } else {
-                ConfirmpasswordlHelp.innerHTML = "The two password don't match";
-                ConfirmpasswordlHelp.style.color = "red";
-            }
-        }
-        function test(){
-            clearTimeout(typingTimer);
-            if (ConfirmPassword.value) {
-                typingTimer = setTimeout(doneTyping, doneTypingInterval);
-            }
-        }
-        function doneTyping() {
-            ConfirmPasswordCheck();
-        }
-        function Main() {
-            PasswordCheck();
-            ConfirmPasswordCheck();
-        }
+const password= document.getElementById('Password');
+const confirmPassword= document.getElementById('ConfirmPassword');
+
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+const TIME_DELAY = 500;
+
+let passwordTimeout;
+
+
+function validatePassword() {
+    if (PASSWORD_REGEX.test(password.value) && password.value.length >= 8) {
+        clearTimeout(passwordTimeout);
+        passwordTimeout = setTimeout(() => {
+            password.classList.remove("is-invalid");
+            password.classList.add("is-valid");
+            SubmitBtn.disabled = false;
+        }, TIME_DELAY);
+    } else {
+        clearTimeout(passwordTimeout);
+        password.classList.remove("is-valid");
+        password.classList.add("is-invalid");
+        SubmitBtn.disabled = true;
+    }
+}
+
+function validateConfirmPassword() {
+    if (password.value == confirmPassword.value && confirmPassword.value.length >= 8) {
+        clearTimeout(passwordTimeout);
+        confirmPassword.classList.remove("is-invalid");
+        confirmPassword.classList.add("is-valid");
+        SubmitBtn.disabled = false;
+    } else {
+        clearTimeout(passwordTimeout);
+        confirmPassword.classList.remove("is-valid");
+        confirmPassword.classList.add("is-invalid");
+        SubmitBtn.disabled = true;
+    }
+}
+
+function validateAll() {
+    if (PASSWORD_REGEX.test(password.value) && password.value.length >= 8) {
+        SubmitBtn.disabled = false;
+    } else {
+        SubmitBtn.disabled = true;
+    }
+}
+
+// on input change
+password.addEventListener("input", validatePassword);
+confirmPassword.addEventListener("input", validateConfirmPassword);
+
+
+// on blur
+password.addEventListener("blur", validatePassword);
+confirmPassword.addEventListener("blur", validateConfirmPassword);
+
+// on submit
+document.getElementById("SubmitBtn").addEventListener("click", () => {
+    validateAll();
+});
