@@ -20,7 +20,7 @@ const login = (req, res, next) => {
                 db.query(sql, req.body.email, (err, result) => {
                     if (err) throw err;
                     if (ver == 1) {
-                        ver = "Verified";
+                        ver = null;
                     } else if (ver == 0) {
                         ver = "Not Verified";
                     }
