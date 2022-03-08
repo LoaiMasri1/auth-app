@@ -9,27 +9,27 @@ router.get('/signup',(req,res)=>{
 });
 
 router.get('/forget',(req,res)=>{
-    res.render('./forget/forget_password')
+    res.render('./forget/forgetPassword')
 });
 
 router.get('/newpassword',(req,res)    => {
-    res.render('./forget/insert_password');
+    res.render('./forget/insertPassword');
 });
 
 router.get('/ConfirmationCode',(req,res)    => {
-  res.render('./forget/Confirmation_code');
+  res.render('./forget/confirmationCode');
 });
 
 router.get('/VerifyEmail',(req,res)    => {
-  res.render('send_code2');
+  res.render('sendCode2');
 })
 
 router.get('/GetCode',(req,res)    => {
-  res.render('confirmation_code2');
+  res.render('confirmationCode2');
 })
 
 router.get('/SendCode',(req,res)    => {
-  res.render('./forget/send_code');
+  res.render('./forget/sendCode');
 });
 
 module.exports=router;

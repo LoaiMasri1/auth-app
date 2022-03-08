@@ -24,7 +24,7 @@ app.use("/static", express.static('./public/'));
 
 app.get("/home/google", (req, res) => {
   //console.log(req.user);
-  res.render("mainpage", { username: req.user.displayName,verified:true });
+  res.render("mainPage", { username: req.user.displayName,verified:true });
 });
 
 app.get(
@@ -34,7 +34,7 @@ app.get(
 
 app.get(
   "/login/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  passport.authenticate("google", { failureRedirect: "/logIn" }),
   (req, res) => {
     res.redirect("/home/google"); //redirect to home page
   }
@@ -46,7 +46,7 @@ app.get("/logout", (req, res) => {
 });
 
 app.use('/',require('./routes/pages'));
-app.use('/login',require('./routes/logIn'));
+app.use('/logIn',require('./routes/logIn'));
 app.use('/forget/user',require('./routes/forget'));
 app.use('/register',require('./routes/register'));
 

@@ -1,6 +1,7 @@
 const db = require('../config/db');
 require('dotenv').config();
 const nodemailer = require('nodemailer');
+const bcrypt=require("bcrypt")
 
 if (typeof localStorage === "undefined" || localStorage === null) {
     var LocalStorage = require('node-localstorage').LocalStorage;
@@ -20,7 +21,7 @@ const confirmCode = (req, res, next) => {
 }
 
 const forgetUser = (req, res, next) => {
-    let sql = `select * from users where email='${req.query.email}' `;
+    let sql = `select * from users where email= '${req.query.email}' `;
     localStorage.setItem("email", req.query.email);
     let query = db.query(sql, (err, results) => {
         if (err) {
@@ -35,9 +36,11 @@ const forgetUser = (req, res, next) => {
     });
 }
 
-const newPassword = (req, res, next) => {
+const newPassword = async(req, res, next) => {
+    let hashPassword= await bcrypt.hash(req.body.password,10)
+
     let sql = 'update users set Password = ? where Email = ? ';
-    let query = db.query(sql, [req.body.password, localStorage.getItem("email")], (err, results) => {
+    let query = db.query(sql, [hashPassword, localStorage.getItem("email")], (err, results) => {
         if (err) {
             throw err;
         }
