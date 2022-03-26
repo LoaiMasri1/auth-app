@@ -11,10 +11,13 @@ const sendCode=(req,res,next) => {
     });
 
     const mailOptions = {
-        from: process.env.GOOGLE_USER,
-        to: `${localStorage.getItem("VerEmail")}`,
-        subject: 'Email Verification',
-        html: '<center><h1>welcome</h1><h1>The confirmation code is</h1><h1 color="red">' + rand.toString() + '</h1></center>'
+      from: `G.O.A.T Supporter <${process.env.GOOGLE_USER}>`,
+      to: `${localStorage.getItem("VerEmail")}`,
+      subject: "Email Verification",
+      html:
+        '<center><h1>welcome</h1><h1>The confirmation code is</h1><h1 color="red">' +
+        rand.toString() +
+        "</h1></center>",
     };
     console.log(rand);
     

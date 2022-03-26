@@ -24,7 +24,7 @@ app.use("/static", express.static('./public/'));
 
 app.get("/home/google", (req, res) => {
   //console.log(req.user);
-  res.render("mainPage", { username: req.user.displayName,verified:true });
+  res.render("mainPage", { username: req.user.displayName,verified:null });
 });
 
 app.get(
